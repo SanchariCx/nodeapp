@@ -37,8 +37,11 @@ app.all('/login',User.login)
 app.post('/createAlbum',Album.create)
 app.post('/fetchalbums',Album.fetch)
 app.get('/ViewAlbum/:album_id',Image.upload)
-app.post('/ViewAlbum/imageUpload',upload.single('album-image'),(req,res)=>{
-    Image.Store(time,req,res)
+// app.post('/ViewAlbum/imageUpload',upload.single('album-image'),(req,res)=>{
+//     Image.Store(time,req,res)
+// })
+app.post('/viewAlbum/imageUpload',upload.single('album-image'),(req,res)=>{
+    res.send('okk');
 })
 app.get('/home',User.home)
 app.listen(3001,()=>{

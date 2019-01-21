@@ -23,6 +23,7 @@
                 <div class="form-group">
                     <label for="caption">Caption</label>
                     <input type="text" class="form-control" name="caption">
+                    <input type="hidden" name="user_id" value="{{UserId}}">
                 </div>
                 <div class="form-group">
                 <select name="view_status" id="input" class="form-control">
@@ -45,14 +46,48 @@
         </div>
     </div>
 </div>
-{{UserId}}
+
 <script>
     $(document).ready(function(){
        
     })
-    $('#ImageUploadForm').submit({
-        alert('hola');
-    })
+   $('#ImageUploadForm').submit(ImageSubmit);
+    function ImageSubmit() {
+        var formdata  = new FormData(this);
+            upload(formdata, function(status){
+                if(status){
+                    $("#caption").val("");
+                    $("#view_status").val(""); 
+                    return;
+                }
+                alert("error");
+            });
+        return false;
+    }
+    function upload(formdata,callback)
+    {
+    $.ajax({
+                type:'POST',
+                url:"imageUpload",
+                data:formdata,
+                cache:false,
+                contentType:false,
+                processData:false,
+                success:function(data)
+                {
+                    if(data)
+                    {  
+                        console.log(data);
+                        callback(true)
+                    }
+                console.log(data); 
+                },
+                error:function(data){
+                console.log(data);
+                callback(false)
+                }
+            });
+    }
         
 
 </script>
